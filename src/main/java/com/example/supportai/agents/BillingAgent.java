@@ -29,7 +29,7 @@ public class BillingAgent
                 getCustomerPlan - returns customer's plan and pricing
                 openRefundRequest - opens a refund request
                 getBillingHistory - provides customer's billing history
-                clarify - use if you need to ask any followup questions, use parameter "question" 
+                clarify - use if you need to ask any followup questions, use parameter "question"
         
                 Rules:
                 - Always decide if a tool is needed for the answer
@@ -49,24 +49,30 @@ public class BillingAgent
 
         String response = llmClient.call(prompt);
 
+        String fixedResponse = response.strip();
+
+        if (fixedResponse.startsWith("```")) {
+            int firstNewLine = fixedResponse.indexOf("\n");
+            fixedResponse = fixedResponse.substring(firstNewLine + 1);
+
+            if (fixedResponse.endsWith("```")) {
+                fixedResponse = fixedResponse.substring(0, fixedResponse.length() - 3);
+            }
+        }
+
         try {
-            JsonNode node = mapper.readTree(response);
+            JsonNode node = mapper.readTree(fixedResponse);
             String tool = node.get("tool").asText();
 
-            switch (tool) {
-                case "getCustomerPlan":
-                    return billingTools.getCustomerPlan();
-                case "openRefundRequest":
-                    return billingTools.openRefundRequest();
-                case "getBillingHistory":
-                    return billingTools.getBillingHistory();
-                case "clarify":
-                    return node.get("parameters").get("question").asText();
-                case "none":
-                    return node.get("parameters").get("answer").asText();
-                default:
-                    return response;
-            }
+            return switch (tool)
+            {
+                case "getCustomerPlan" -> billingTools.getCustomerPlan();
+                case "openRefundRequest" -> billingTools.openRefundRequest();
+                case "getBillingHistory" -> billingTools.getBillingHistory();
+                case "clarify" -> node.get("parameters").get("question").asText();
+                case "none" -> node.get("parameters").get("answer").asText();
+                default -> fixedResponse;
+            };
 
         } catch (Exception e) {
             return "Could not parse response, response: " + response;

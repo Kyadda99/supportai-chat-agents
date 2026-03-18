@@ -21,17 +21,21 @@ public class TechnicalAgent
 
     public String handle(String question, String history)
     {
-        List<String> docummnets = loader.search(question);
-        String context = String.join("\n\n", docummnets);
+
 
 
         if(history.length()>4000) history = history.substring(history.length()-4000);
+
+        List<String> docummnets = loader.search(history + question);
+        String context = String.join("\n\n", docummnets);
+
+
         if(context.length()>2000) context = context.substring(context.length()-2000);
 
 
         String prompt = """
               You are an expert technical support specialist.
-                
+
               RULES:
               - Answer ONLY from documentation
               - If not found say: I could not find sufficient information in the available documentation to answer this question.
