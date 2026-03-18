@@ -13,7 +13,7 @@ public class RouterService
         this.llm = llm;
     }
 
-    public String route(String message){
+    public String route(String conversation){
 
 
 
@@ -23,12 +23,14 @@ public class RouterService
         TECHNICAL
         BILLING
         OTHER
-
-        Message:
+        
+        Consider full context:
+        
+        Conversation
         %s
 
         Return only category name.
-        """.formatted(message).trim();
+        """.formatted(conversation).trim();
 
         return llm.call(prompt).trim();
 

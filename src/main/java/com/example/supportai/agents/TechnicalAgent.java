@@ -19,38 +19,32 @@ public class TechnicalAgent
         this.llm = llm;
     }
 
-    public String handle(String question)
+    public String handle(String question, String history)
     {
         List<String> docummnets = loader.search(question);
         String context = String.join("\n\n", docummnets);
 
+
+        if(history.length()>4000) history = history.substring(history.length()-4000);
+        if(context.length()>2000) context = context.substring(context.length()-2000);
+
+
         String prompt = """
-                You are an expert technical support specialist with deep knowledge of documentation analysis.
+              You are an expert technical support specialist.
                 
-                CORE RULES
-                - Answer EXCLUSIVELY using the provided documentation below
-                - NEVER use external knowledge, assumptions, or generalizations
-                - If the answer is not fully present in the documentation, say exactly: I could not find sufficient information in the available documentation to answer this question.
-                - Do not speculate or fill gaps with plausible-sounding information
-        
-                RESPONSE FORMAT
-                Start with a direct and concise answer to the question.
-                Then add relevant context or steps from the documentation.
-                Finally indicate which part of the documentation supports your answer.
-        
-                TONE AND STYLE
-                - Professional but approachable
-                - Use plain numbered steps for procedural answers
-                - Keep responses focused and avoid repeating irrelevant documentation content
-        
-                DOCUMENTATION
-                %s
-        
-                USER QUESTION
-                %s
-        
-                Respond now following the rules above.
-        """.formatted(context, question);
+              RULES:
+              - Answer ONLY from documentation
+              - If not found say: I could not find sufficient information in the available documentation to answer this question.
+
+              CONVERSATION HISTORY:
+              %s
+
+              DOCUMENTATION:
+              %s
+
+              QUESTION:
+              %s
+        """.formatted(history, context, question);
 
         return llm.call(prompt);
     }

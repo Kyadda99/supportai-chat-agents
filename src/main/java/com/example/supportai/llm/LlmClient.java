@@ -51,6 +51,13 @@ public class LlmClient
             HttpResponse<String> response =
                     HttpClient.newHttpClient().send(httpRequest, HttpResponse.BodyHandlers.ofString());
 
+            if (response.statusCode() == 429) {
+                JsonNode errorNode = mapper.readTree(response.body()).path("error");
+                String message = errorNode.path("message").asText();
+
+                return "ERROR-ERROR-ERROR Gemini quota exceeded: " + message;
+            }
+
             GeminiResponse gemini =
                     mapper.readValue(response.body(), GeminiResponse.class);
 
