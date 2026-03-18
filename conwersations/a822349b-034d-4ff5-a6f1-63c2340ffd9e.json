@@ -1,0 +1,13 @@
+[ {
+  "content" : "I keep getting a 401 Unauthorized error when using my API key.",
+  "role" : "user"
+}, {
+  "content" : "A 401 Unauthorized error indicates that your API key is missing or invalid. Please check that your Authorization header is correctly formatted as follows:\n\nAuthorization: Bearer YOUR_API_KEY",
+  "role" : "assistant"
+}, {
+  "content" : "Can you remind me which plan I’m on?",
+  "role" : "user"
+}, {
+  "content" : "Customer plan is Basic, cost: 30$ per month",
+  "role" : "assistant"
+} ]

@@ -1,0 +1,7 @@
+[ {
+  "content" : "Can you remind me which plan I’m on",
+  "role" : "user"
+}, {
+  "content" : "Customer plan is Basic, cost: 30$ per month",
+  "role" : "assistant"
+} ]

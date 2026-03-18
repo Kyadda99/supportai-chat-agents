@@ -1,0 +1,19 @@
+[ {
+  "content" : "My webhook keeps failing when I try to subscribe to ticket.resolved events",
+  "role" : "user"
+}, {
+  "content" : "If your webhook is failing, ensure your endpoint returns HTTP 200 within 5 seconds of the test POST request. Endpoints that timeout or return any other status code will be marked as inactive and must be re-verified.",
+  "role" : "assistant"
+}, {
+  "content" : "Also, I think I was charged twice this month",
+  "role" : "user"
+}, {
+  "content" : "Last charge was on 49PLN on 1 April 2026",
+  "role" : "assistant"
+}, {
+  "content" : "Can I open a refund request for the extra charge",
+  "role" : "user"
+}, {
+  "content" : "Refund request has been opened. you will receive answer in 30 days",
+  "role" : "assistant"
+} ]

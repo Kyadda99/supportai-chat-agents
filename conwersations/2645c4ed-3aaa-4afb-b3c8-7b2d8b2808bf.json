@@ -1,0 +1,13 @@
+[ {
+  "content" : "My API keeps returning HTTP 429 errors. What should I do?",
+  "role" : "user"
+}, {
+  "content" : "You have exceeded the rate limit of 100 requests per minute. You should wait 60 seconds before retrying. \n\nAdditionally, the response includes a Retry-After header indicating how many seconds to wait before retrying. If you require higher limits, you can contact support at limits@supportai.com and include your account ID and a description of your use case.",
+  "role" : "assistant"
+}, {
+  "content" : "Can you also send me a history of my last few charges?",
+  "role" : "user"
+}, {
+  "content" : "Last charge was on 49PLN on 1 April 2026",
+  "role" : "assistant"
+} ]

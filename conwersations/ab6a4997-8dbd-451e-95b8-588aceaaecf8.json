@@ -1,0 +1,31 @@
+[ {
+  "content" : "How do I set up a webhook to get notifications when a ticket is created??",
+  "role" : "user"
+}, {
+  "content" : "To set up a webhook to get notifications when a ticket is created, follow these steps:\n\n1. Go to the Admin Dashboard and open the Integrations section.\n2. Click **Add Webhook** and enter your endpoint URL.\n3. Select the events you want to subscribe to (select the ticket creation event) from the list.\n4. Click **Save**. \n\nSupportAI will send a test POST request to verify the endpoint is reachable. Your endpoint must return HTTP 200 within 5 seconds to pass verification.",
+  "role" : "assistant"
+}, {
+  "content" : "What should I do if the test POST request fails?",
+  "role" : "user"
+}, {
+  "content" : "If the test POST request fails, the webhook is saved but marked inactive. You should take the following steps to troubleshoot and resolve the issue:\n\n**Troubleshooting:**\n* Ensure your server is publicly reachable at the configured URL.\n* Confirm the endpoint responds with HTTP 200 on POST requests.\n* Check for firewall rules or authentication middleware that might be blocking the request.\n\n**Re-verification:**\n* After fixing the issues, you can either re-save the webhook to trigger a new verification POST, or go to **Integrations**, find the webhook, and click **Re-verify**. \n* SupportAI will send a new test POST, and the webhook will reactivate upon a successful response.",
+  "role" : "assistant"
+}, {
+  "content" : "Can I get notifications for when a ticket is escalated to a human agent?",
+  "role" : "user"
+}, {
+  "content" : "Yes, you can get notifications for when a ticket is escalated to a human agent. You can subscribe to the `agent.escalated` event when configuring your webhook.",
+  "role" : "assistant"
+}, {
+  "content" : "Is there a limit to how many webhooks I can have?",
+  "role" : "user"
+}, {
+  "content" : "I could not find sufficient information in the available documentation to answer this question.",
+  "role" : "assistant"
+}, {
+  "content" : "What happens if I send too many API requests?",
+  "role" : "user"
+}, {
+  "content" : "When you exceed the API request limit, the API returns HTTP 429 Too Many Requests. The response includes a Retry-After header indicating how many seconds to wait before retrying.",
+  "role" : "assistant"
+} ]
